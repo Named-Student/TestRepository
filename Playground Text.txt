@@ -1,0 +1,511 @@
+import java.util.Scanner;
+/* Adriel Fillippini
+ * Software Engineering
+ * Game Design, First Iteration
+ * 	
+ * For this build I am keeping everything in one class to see how everything works together.
+ * Variables and loops have all been labeled, and most loops will probably be used multiple times.
+ * There is some minor error correction to keep the game from crashing from strange user input.
+ * Game is limited to two rooms in this build just to test the core mechanics.
+ */
+
+public class Playgrounds {
+
+	public static void main(String[] args) {
+
+		// Variables
+		Scanner input = new Scanner(System.in); // Scanner allows for player
+												// input
+		int Room_Number = 0; // Rooms are assigned numbers to aid in navigation
+								// in this build
+		boolean key = false; // Key will be a necessary component to complete the
+							// game
+		boolean door = false; // Door is the end-game, player must have "key" to
+								// change door state
+		int Action = 0; // Action will record the users desired action
+		int Direction = 0; // Direction allows the user to "look" around in a
+							// room
+		int Move = 0; // Move allows the player to change the Room_Number
+						// integer
+		int Use = 0; // Use allows the player to interact with object in-game
+						// (door and key, in this build)
+		int Interact = 0; // Interact allows the user to change the boolean
+							// state of object (key in this build)
+		int Decision = 1; // Decision will be used in loops to allow player to
+							// remain in a certain mode
+
+		// Alpha Variables (may change or be removed in later builds)
+		int Game_State = 0; // Game State allows the program to be replayed
+							// without recompiling code in Eclipse
+
+		// Start of Game
+		// Code----------------------------------------------------------------------------------------------------------------
+
+		// Game introduction
+		Game_State = 0;
+		while (Game_State == 0) {
+		//Resetting all variables for replay
+			key = false;
+			door = false;
+			Action = 0;
+			Decision = 0;
+			Room_Number = 0;
+			
+			System.out.println("************************************************************");
+			System.out.println("Welcome to Lost Contact!");
+			System.out.println("In this game you assume the persona of a space station denizen.");
+			System.out.println("Contact with Homeworld has been lost, and the station is dying.");
+			System.out.println("You need to find the key to the door to escape...");
+			System.out.println("This game is in Alpha build, so, options are very limited.");
+			System.out.println("************************************************************");
+			System.out.println("Input 1 to continue.");
+			Game_State = input.nextInt();
+
+			// Error Correction
+			while (Game_State != 1) {
+				System.out.println("That input is not allowable right now, sorry, please re-enter.");
+				Game_State = input.nextInt();
+			}
+
+			// Game instructions
+			while (Game_State == 1) {
+				System.out.println("************************************************************");
+				System.out.println("This game is still in alpha, so commands are limited.");
+				System.out.println("Options will be presented on the console, and");
+				System.out.println("the the input associated with each option will be");
+				System.out.println("displayed. Input will all be Integets (numbers) from 1 to 4.");
+				System.out.println("So if you want to do something, you need to input the number");
+				System.out.println("associated with that action and press enter.");
+				System.out.println("There is some minor error correction, so don't worry about");
+				System.out.println("accidentally crashing the program with the wrong input. ");
+				System.out.println("Have Fun!");
+				System.out.println("************************************************************");
+				System.out.println("Please enter 2 to continue");
+				Game_State = input.nextInt();
+
+				// Error Correction
+				while (Game_State != 2) {
+					System.out.println("That input is not allowable right now, sorry, please re-enter.");
+					Game_State = input.nextInt();
+				}
+
+				// Start of game with input
+				while (Game_State == 2) {
+					while (Room_Number == 0) {
+						System.out.println("************************************************************");
+						System.out.println("You find yourself in a hall, there is a door in front of you.");
+						System.out.println("What would you like to do?");
+						System.out.println("************************************************************");
+						System.out.println("To Look, enter 1");
+						System.out.println("To Move, enter 2");
+
+						Action = input.nextInt();
+						Decision = 1;
+
+						// Error Correction
+						while (Action != 1 && Action != 2) {
+							System.out.println("Sorry, that input can't be used, please reenter");
+							System.out.println("To Look, enter 1");
+							System.out.println("To Move, enter 2");
+							Action = input.nextInt();
+
+						}
+						// While loop for Looking
+						while (Action == 1) {
+							while (Decision == 1) {
+								System.out.println("----------------------------------------");
+								System.out.println("What direction would you like to look?");
+								System.out.println("Forward: 	1");
+								System.out.println("Left: 		2");
+								System.out.println("Backward:	3");
+								System.out.println("Right:		4");
+								System.out.println("----------------------------------------");
+								Direction = input.nextInt();
+								if (Direction == 1) {
+									System.out.println(
+											"The door is open, and on the other side there is another room.\n");
+								} else if (Direction == 2) {
+									System.out.println("There is only a wall.\n");
+								} else if (Direction == 3) {
+									System.out.println("There is only a wall.\n");
+								} else if (Direction == 4) {
+									System.out.println("There is only a wall.\n");
+								}
+								// Error Correction
+								else {
+									System.out.println("Sorry, that input wasn't recognized.");
+								}
+								System.out.println("Would you like to keep looking around?");
+								System.out.println("Yes: input 1");
+								System.out.println("No:  input 2");
+								Decision = input.nextInt();					
+								if (Decision == 2) {
+									Action = 0;
+								}
+
+								// Error Correction
+								while (Decision != 1 && Decision != 2) {
+									System.out.println("Sorry, that input can't be used, please reenter");
+									System.out.println("Yes: input 1");
+									System.out.println("No:  input 2");
+									Decision = input.nextInt();
+
+								}
+							} // End while (Decision == 1) loop
+						} // End while (Action == 1) loop
+						// While loop for moving
+						while (Action == 2) {
+							System.out.println("----------------------------------------");
+							System.out.println("What direction would you like to move?");
+							System.out.println("Forward: 	1");
+							System.out.println("Left: 		2");
+							System.out.println("Backward:	3");
+							System.out.println("Right:		4");
+							System.out.println("----------------------------------------");
+							Move = input.nextInt();
+							if (Move == 4) {
+								System.out.println("There is a wall there, can't go that way.\n");
+							} else if (Move == 3) {
+								System.out.println("There is a wall there, can't go that way.\n");
+							} else if (Move == 2) {
+								System.out.println("There is a wall there, can't go that way.\n");
+							} else if (Move == 1) {
+								System.out.println("You go through the door.\n");
+								Action = 10;
+								Room_Number = 1;
+							} else {
+								System.out.println("That is not, in fact, a direction... sorry");
+							}
+							if (Move != 1){
+							System.out.println("Would you like to keep moving around?");
+							System.out.println("Yes: input 1");
+							System.out.println("No:  input 2");
+							Decision = input.nextInt();
+							if (Decision == 2) {
+								Action = 0;
+							}
+							
+							// Error Correction
+							while (Decision != 1 && Decision != 2) {
+								System.out.println("Sorry, that input can't be used, please re-enter");
+								System.out.println("Yes: input 1");
+								System.out.println("No:  input 2");
+								Decision = input.nextInt();
+
+							}
+							}
+						} // End while (Action == 2) loop
+					} // End while (Room_Number == 0) loop
+
+					// Second Room
+					while (Room_Number == 1) {
+						System.out.println("************************************************************");
+						System.out.println("You are in the next room.");
+						System.out.println("It is remarkebly baren. Probably looted at some point for resources.");
+						System.out.println("There is a poster directly in front of you. ");
+						System.out.println("There is a desk to your left.");
+						System.out.println("The desk appears to have been ransacked.");
+						System.out.println(
+								"To the right you see a door. The button above the key access port is red....");
+						System.out.println("Crud, you find yourself locked in a room.");
+						System.out.println("What would you like to do?");
+						System.out.println("************************************************************");
+						System.out.println("To Look, 	 enter 1");
+						System.out.println("To Move, 	 enter 2");
+						System.out.println("To Interact,     enter 3");
+						System.out.println("To Use, 	 enter 4");
+						Action = input.nextInt();
+						Decision = 1;
+
+						// Error Correction
+						while (Action != 1 && Action != 2 && Action != 3 && Action != 4) {
+							System.out.println("Sorry, that input can't be used, please re-enter");
+							System.out.println("To Look,     enter 1");
+							System.out.println("To Move,     enter 2");
+							System.out.println("To Interact, enter 3");
+							System.out.println("To Use,      enter 4");
+							Action = input.nextInt();
+						}
+						// Loop for looking
+						while (Action == 1) {
+							while (Decision == 1) {
+								System.out.println("----------------------------------------");
+								System.out.println("What direction would you like to look?");
+								System.out.println("Forward: 	1");
+								System.out.println("Left: 		2");
+								System.out.println("Backward:	3");
+								System.out.println("Right:		4");
+								System.out.println("----------------------------------------");
+								Direction = input.nextInt();
+								if (Direction == 1) {
+									System.out.println(
+											"The poster is quite large, and according to it, you are the perfect");
+									System.out.println("candidate to join the rebel alliance....");
+									System.out.println(
+											"Besides that, there's nothing about the postor to further the game...\n");
+								}
+								// Nested If/Else for the desk, dependent on the
+								// key
+								else if (Direction == 2) {
+									if (key == false) {
+										System.out.println("You go rummaging about the desk, which is fine since\n"
+												+ "you're the main character.");
+										System.out.println(
+												"While rummaging, you hear a slight metallic clinking deep in\n"
+														+ "the bottom shelf.");
+										System.out.println("Since all you're doing is looking right now, you'll have\n"
+												+ "to just keep it in mind.\n");
+									} else if (key == true) {
+										System.out.println("You look around some more, but the key was all that \n"
+												+ "is worth your time.");
+									} // End of nested If/Else tree
+								} else if (Direction == 3) {
+									System.out.println("You see the door you walked through to get into this room.\n");
+								}
+								// Nested If/Else for the door, dependent on the
+								// key
+								else if (Direction == 4) {
+									if (door == false) {
+										System.out.println("You examine the door. It is made of some metal and\n"
+												+ "refuses to budge in any direction. The access port is lit red, which\n"
+												+ "means unless you find a key or an explosive, it's locked.\n");
+									} else if (door == true) {
+										System.out
+												.println("The door is now open, all you need to do is go through it.");
+									} // End of nested If/Else tree
+								}
+								// Error Correction
+								else {
+									System.out.println("Sorry, that input wasn't recognized.");
+								}
+								System.out.println("------------------------------------------");
+								System.out.println("Would you like to keep looking around?");
+								System.out.println("Yes: input 1");
+								System.out.println("No:  input 2");
+								Decision = input.nextInt();
+								if (Decision == 2) {
+									Action = 0;
+								}
+								// Error Correction
+								while (Decision != 1 && Decision != 2) {
+									System.out.println("Sorry, that input can't be used, please reenter");
+									System.out.println("Yes: input 1");
+									System.out.println("No:  input 2");
+									Decision = input.nextInt();
+
+								}
+							} // Ends while (Decision == 1) loop
+						} // Ends while (Action == 1) loop
+
+						// Loop for Moving
+						while (Action == 2) {
+							while (Decision == 1) {
+								System.out.println("----------------------------------------");
+								System.out.println("What direction would you like to move?");
+								System.out.println("Forward: 	1");
+								System.out.println("Left: 		2");
+								System.out.println("Backward:	3");
+								System.out.println("Right:		4");
+								System.out.println("----------------------------------------");
+								Move = input.nextInt();
+								// Nested If/Else for the door with end game
+								// mechanics
+								if (Move == 4) {
+									if (door == false) {
+										System.out.println(
+												"The door is still locked, and you can't force it.\n");
+									} else if (door == true) {
+										System.out.println(
+												"-----------------------------------------------------------------");
+										System.out.println(
+												"That's it, you have won the game... I mean you unlock the door\n"
+														+ "and can proceed to escape the station.");
+										System.out.println(
+												"Would you like to hang around some more or go ahead and leave?");
+										System.out.println(
+												"-----------------------------------------------------------------");
+										System.out.println("Stay: 	enter 1");
+										System.out.println("Leave: 	enter 2");
+										Decision = input.nextInt();
+										if (Decision == 1) {
+											System.out.println(
+													"Sounds good, go ahead and keep looking around. Just move back\n"
+															+ "to the door when you want to leave.");
+											
+										} else if (Decision == 2) {
+											System.out.println(
+													"************************************************************");
+											System.out.println(
+													"Congratulations! You have left the locked room and proceed on\n"
+															+ "your journey off the station. Thanks for playing");
+											System.out.println(
+													"************************************************************");
+											Game_State = 0;
+											Action = 10;
+											Room_Number = 10;
+										} else {
+											System.out.println("That wasn't recognized, sorry.");
+										}
+
+									} // End of if (door == false) tree
+								} // End of Nested If/Else
+								else if (Move == 3) {
+									System.out.println("You go back into the hallway.\n");
+									Action = 10;
+									Decision = 2;
+									Room_Number = 0;
+								} else if (Move == 2) {
+									System.out.println("You walk over to the desk, and go no farther.");
+									System.out.println("Hmmm, still stuck in the room.\n");
+								} else if (Move == 1) {
+									System.out.println("You body slam the poster, but you are still in the room.\n");
+
+								} else {
+									System.out.println("That is not, in fact, a direction...sorry");
+								}
+								
+								System.out.println("------------------------------------------");
+								System.out.println("Would you like to keep moving around?");
+								System.out.println("Yes: input 1");
+								System.out.println("No:  input 2");
+								Decision = input.nextInt();
+								if (Decision == 2) {
+									Action = 0;
+								}
+								// Error Correction
+								while (Decision != 1 && Decision != 2) {
+									System.out.println("Sorry, that input can't be used, please reenter");
+									System.out.println("Yes: input 1");
+									System.out.println("No:  input 2");
+									Decision = input.nextInt();
+								}
+							
+							} // Ends while (Decision == 1) loop
+						} // Ends while (Action == 2) loop
+
+						// Loop for Interacting
+						while (Action == 3) {
+							while (Decision == 1) {
+								System.out.println("What would you like to interact with?");
+								System.out.println("Poster: input 1");
+								System.out.println("Desk:   input 2");
+								System.out.println("Door:   input 3");
+								Interact = input.nextInt();
+								
+							//Error Correction
+								while (Interact > 3 && Interact < 1){
+									System.out.println("Sorry, that input can't be used, please reenter.");
+									System.out.println("Poster: input 1");
+									System.out.println("Desk:   input 2");
+									System.out.println("Door:   input 3");
+									Interact = input.nextInt();
+								}
+								
+								//Nested If/Else for Interact
+								if (Interact == 1){
+									System.out.println("You...touch the poster? Ok, so, you did that.");
+								}
+								else if (Interact == 2){
+									if (key == true){
+										System.out.println("You don't find anything else of use right now.");
+									}
+									else if (key == false){
+									System.out.println("You reach into the far reaches of the bottom shelf.");
+									System.out.println("After struggling for a bit, you touch a thin rectangular");
+									System.out.println("object that feels metallic.");
+									System.out.println("You grab the card and pull it out. It seems to be an access card.");
+									key = true;
+								}
+								}
+								else if (Interact == 3){
+									if (door == false){
+										System.out.println("You bang on the door, sceaming for help, but nobody comes.");
+									}
+									else if (door == true){
+										System.out.println("You poke your head through the door.");
+										System.out.println("It seems safe enough, at least as safe as it can be.");
+										System.out.println("'Just a little farther to go' you think to yourself.");
+										System.out.println("All you need to do is walk through the door.");
+									}
+								}
+								System.out.println("------------------------------------------");
+								System.out.println("Would you like to keep interacting with things?");
+								System.out.println("Yes: input 1");
+								System.out.println("No:  input 2");
+								Decision = input.nextInt();
+								if (Decision == 2) {
+									Action = 0;
+								}
+								// Error Correction
+								while (Decision != 1 && Decision != 2) {
+									System.out.println("Sorry, that input can't be used, please reenter");
+									System.out.println("Yes: input 1");
+									System.out.println("No:  input 2");
+									Decision = input.nextInt();
+									if (Decision == 2) {
+										Action = 0;
+									}
+								}						
+							} //End while (Decision == 1) loop
+						} //End while (Action == 3) loop
+						
+					//Loop for Using
+						while (Action == 4){
+							while (Decision == 1){
+								if (key == true){
+								System.out.println("------------------------------------------");
+								System.out.println("There is only one thing to use right now.");
+								System.out.println("Would you like to use the key?");
+								System.out.println("------------------------------------------");
+								System.out.println("Use Key: input 1");
+								System.out.println("Don't:   input 2");
+								Use = input.nextInt();
+								if (Use == 1){
+									System.out.println("You insert the keycard into the access port.");
+									System.out.println("After a few dramatic seconds, the light turns green.");
+									System.out.println("The door is now open, you can leave the room.");
+									door = true;
+									}
+								}
+								else if (key == false){
+									System.out.println("You don't have anything to Use at the moment.");
+								}
+								else {
+									System.out.println("Can't accept that input.");
+								}
+								System.out.println("------------------------------------------");
+								System.out.println("Would you like to keep trying to use things?");
+								System.out.println("Yes: input 1");
+								System.out.println("No:  input 2");
+								Decision = input.nextInt();
+								if (Decision == 2) {
+									Action = 0;
+								}
+								// Error Correction
+								while (Decision != 1 && Decision != 2) {
+									System.out.println("Sorry, that input can't be used, please reenter");
+									System.out.println("Yes: input 1");
+									System.out.println("No:  input 2");
+									Decision = input.nextInt();
+									if (Decision == 2) {
+										Action = 0;
+									}
+								}
+							} //End of while (Decision == 1) loop
+						} //End of while (Action == 4) loop
+						
+						
+						
+					} // End while (Room_Number == 1) loop
+				} // End while (Game_State == 2) loop
+
+			} // End while (Game_State == 1) loop
+
+		} // End while (Game_State == 0) loop
+
+		//Closing the scanner utility
+		input.close();
+
+	} // public static void main
+
+} // public class
